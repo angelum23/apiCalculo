@@ -8,14 +8,18 @@ def monta_grafico():
     if request.method == 'GET':
         return jsonify({'response': 'Get request called'})
     elif request.method == 'POST':
-        formula = str(request.args.get('formula'))
-        list_results = list()
-        for i in range(-10, 10):
-            f1 = formula
-            f1 = f1.replace('x²', str(i)+'*'+str(i))
-            f1 = f1.replace('x', str(i))
-            list_results.append(f1)
-        return jsonify({'listFunc': list_results})
-
+        formula = str(request).strip()
+        slc = slice((formula.find('=') + 1), None)
+        slicestr = formula[slc]
+        slc = slice(None, formula.find("'"))
+        slicestr = slicestr[slc]
+        splitformula = slicestr.replace("%", " ")
+        splitformat = list()
+        for i in splitformula:
+            try:
+                splitformat.append(int(i))
+            except:
+                splitformat.append(str(i))
+        return jsonify({"jonson": splitformat})
 
 app.run(debug=True)
