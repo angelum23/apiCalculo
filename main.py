@@ -24,14 +24,17 @@ def monta_grafico():
         formula = converteformula(request)
 
         for i in range(-10, 10):
-            formulaTemp = formula.replace("x²", str(i * i))
-            formulaTemp = formulaTemp.replace("x", str(i))
+            formula_temp = formula.replace("x²", str(i * i))
+            formula_temp = formula_temp.replace("x", str(i))
             try:
-                resultado = eval(formulaTemp)
+                resultado = eval(formula_temp)
             except:
                 return 'Erro'
             listax.append(i)
             listay.append(resultado)
+
+        if 'x' not in formula:
+            return str(listay[0])
 
         return jsonify({'x': listax, 'y': listay})
 
