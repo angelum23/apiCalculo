@@ -1,6 +1,8 @@
+from flask_cors import CORS
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
+CORS(app)
 
 def converteformula(request):
     request_strip = str(request).strip()
@@ -11,6 +13,7 @@ def converteformula(request):
     formula = slice_str.replace("%20", " ")
     formula = formula.replace("%2F", "/")
     return formula
+
 
 @app.route('/montaGrafico', methods=['GET', 'POST'])
 def monta_grafico():
