@@ -23,10 +23,9 @@ def monta_grafico():
     if request.method == 'GET':
         return jsonify({'response': 'Get request called'})
     elif request.method == 'POST':
-
         formula = converteformula(request)
 
-        for i in range(-10, 10):
+        for i in range(-49, 51, 2):
             formula_temp = formula.replace("x²", str(i * i))
             formula_temp = formula_temp.replace("x", str(i))
             try:
